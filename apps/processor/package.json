@@ -1,0 +1,23 @@
+{
+  "name": "processor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap",
+    "start": "esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap && nodemon dist/index.js",
+    "dev": "nodemon ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "db": "*",
+    "esbuild": "^0.23.1",
+    "kafkajs": "^2.2.4",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "typescript": "^5.5.4"
+  }
+}
