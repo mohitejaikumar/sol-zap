@@ -47,7 +47,10 @@ model Action {
   zapId             String
   zap               Zap             @relation(fields: [zapId], references: [id])
   metadata          Json            @default("{}")
-  orderId           Int             @default(0)
+  orderId           Int             @default(1)
+  parentId          String?
+  parent            Action?         @relation("ActionChildren", fields: [parentId], references: [id])
+  children          Action[]        @relation("ActionChildren")
 }
 
 model AvailableTrigger {

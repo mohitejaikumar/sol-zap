@@ -19,49 +19,50 @@ app.post("/solHook", async (req,res)=>{
     
     
     const solTransferData = req.body;
-    console.log(JSON.stringify(solTransferData, null, 2));
+    // console.log(JSON.stringify(solTransferData, null, 2));
+    console.log(solTransferData[0].description);
     const feePayer = solTransferData[0].feePayer;
 
     // dump this into database in zap and zapRun both (outbox pattern)
     
-    await prisma.$transaction(async (tx)=>{
-        const zaps = await tx.availableTrigger.findMany({
-            where:{
-                name:"solana"
-            },
-            include:{
-                triggers:{
-                    include:{
-                        zap:true,
-                    },
-                    where:{
-                        metadata:{
-                            path:["address"],
-                            array_contains:[feePayer]
-                        }
-                    }
-                },
-            }
-        })
-        console.log(zaps);
-        for(const trigger of zaps[0].triggers){
-            const zapRun = await tx.zapRun.create({
-                data:{
-                    zapId:trigger.zapId,
-                    metadata:solTransferData[0].description,
-                    timestamp: new Date(),
-                },
-            })
-            const zapRunOutbox = await tx.zapRunOutbox.create({
-                data:{
-                    zapRunId:zapRun.id,
-                    timestamp: new Date(),
-                },
-            })
-            console.log(zapRunOutbox,zapRun);
-        }
+    // await prisma.$transaction(async (tx)=>{
+    //     const zaps = await tx.availableTrigger.findMany({
+    //         where:{
+    //             name:"solana"
+    //         },
+    //         include:{
+    //             triggers:{
+    //                 include:{
+    //                     zap:true,
+    //                 },
+    //                 where:{
+    //                     metadata:{
+    //                         path:["address"],
+    //                         array_contains:[feePayer]
+    //                     }
+    //                 }
+    //             },
+    //         }
+    //     })
+    //     console.log(zaps);
+    //     for(const trigger of zaps[0].triggers){
+    //         const zapRun = await tx.zapRun.create({
+    //             data:{
+    //                 zapId:trigger.zapId,
+    //                 metadata:solTransferData[0].description,
+    //                 timestamp: new Date(),
+    //             },
+    //         })
+    //         const zapRunOutbox = await tx.zapRunOutbox.create({
+    //             data:{
+    //                 zapRunId:zapRun.id,
+    //                 timestamp: new Date(),
+    //             },
+    //         })
+    //         console.log(zapRunOutbox,zapRun);
+    //     }
         
-    })
+    // })
 
     res.status(200).send("Hook got successfully");
 })
