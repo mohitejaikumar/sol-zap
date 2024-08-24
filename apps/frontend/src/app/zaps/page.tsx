@@ -17,6 +17,7 @@ import { availableActionsAtom } from 'solZap/store/atoms/action';
 import axios from 'axios';
 import { ZapCreateSchema } from 'types';
 import { Button } from 'solZap/components/ui/button';
+import { useSession } from 'next-auth/react';
 
 
 
@@ -28,7 +29,7 @@ const getId = () => `${id++}`;
 
 const ZapPage = () => {
 
-    const params = useParams();
+    const {data:session} = useSession();
     const reactFlowWrapper = useRef(null);
     const connectingNodeId = useRef(null);
     const { screenToFlowPosition } = useReactFlow();
@@ -318,6 +319,11 @@ const ZapPage = () => {
         try{
             const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/zap`,{
                 ...zapData
+            },{
+                headers:{
+                    //@ts-ignore
+                    'Authorization': session?.user?.jwtToken
+                }
             });
             console.log(res);
         }
@@ -328,11 +334,11 @@ const ZapPage = () => {
 
 
     return (
-        <div className="wrapper relative" ref={reactFlowWrapper}>
-        <div>{JSON.stringify(zapData)}</div>
-        <div className="h-20">
-            <Button className="absolute top-5 right-10 bg-black text-white" variant="default" disabled={!isDone} onClick={onPublish}>Publish</Button>
-        </div>
+        <>
+        <div className="relative">
+        <Button className="absolute top-5 right-10 bg-black text-white" variant="default" disabled={!isDone} onClick={onPublish}>Publish</Button>
+        <div className="wrapper mt-[15vh]" ref={reactFlowWrapper}>
+        {/* <div>{JSON.stringify(zapData)}</div> */}
         <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -347,6 +353,8 @@ const ZapPage = () => {
             
         />
         </div>
+        </div>
+        </>
     )
 }
 

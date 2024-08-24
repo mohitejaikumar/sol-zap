@@ -13,14 +13,25 @@ router.post('/signup',async(req:CustomRequest,res)=>{
         return res.status(400).json({message:"Invalid Inputs"});;
     }
     try{
-        const user = await prisma.user.create({
-            data:{
-                username:parsedData.data.username,
-                password:parsedData.data.password,
+        const user = await prisma.user.findUnique({
+            where:{
                 email:parsedData.data.email,
             }
         })
-        res.status(200).json({user:user});
+        if(user){
+
+            res.status(200).json({user:user});
+        }
+        else{
+            const newUser = await prisma.user.create({
+                data:{
+                    username:parsedData.data.username,
+                    password:parsedData.data.password,
+                    email:parsedData.data.email,
+                }
+            })
+            res.status(200).json({user:newUser});
+        }
     }
     catch(err){
         console.log(err);
@@ -55,6 +66,7 @@ router.post('/signin',async(req:CustomRequest,res)=>{
         
         res.json({
             token: token,
+            user:user
         });
     }
     catch(err){

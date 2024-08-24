@@ -21,7 +21,7 @@ import DualRing from "../../../../public/DualRing";
 
 const signUpSchema = z.object({
     email: z.string().email(),
-    name: z.string().min(3, "Name must be atleast 3 characters"),
+    username: z.string().min(3, "Name must be atleast 3 characters"),
     password: z
         .string()
         .min(8, "Password must be atleast 8 characters")
@@ -39,6 +39,7 @@ const Page = () => {
         defaultValues: {
         email: "",
         password: "",
+        username:""
         },
     });
 
@@ -66,7 +67,7 @@ const Page = () => {
             ) as any,
             description: `Login to Continue`,
         });
-        router.push("/auth/login");
+        router.push("/auth/signin");
         } catch (error: any) {
         toast({
             title: (
@@ -80,9 +81,10 @@ const Page = () => {
         console.error("Error occurred:", error);
         }
     }
+
     return (
         <>
-        <div className=" text-white text-5xl font-semibold">Sign Up</div>
+        <div className=" text-black text-5xl font-semibold">Sign Up</div>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -92,7 +94,7 @@ const Page = () => {
                 <FormItem>
                     <FormControl>
                     <Input
-                        className=" bg-transparent text-white font-medium text-lg"
+                        className=" text-black font-medium text-lg"
                         placeholder="Email"
                         {...field}
                     />
@@ -103,13 +105,13 @@ const Page = () => {
             />
             <FormField
                 control={form.control}
-                name="name"
+                name="username"
                 render={({ field }) => (
                 <FormItem>
                     <FormControl>
                     <Input
-                        className=" bg-transparent text-white font-medium text-lg"
-                        placeholder="Name"
+                        className="  text-black font-medium text-lg"
+                        placeholder="Username"
                         {...field}
                     />
                     </FormControl>
@@ -125,7 +127,7 @@ const Page = () => {
                     <FormControl>
                     <Input
                         type="password"
-                        className="bg-transparent text-white font-medium text-lg"
+                        className=" text-black font-medium text-lg"
                         placeholder="Password"
                         {...field}
                     />
@@ -135,7 +137,7 @@ const Page = () => {
                 )}
             />
             <Button
-                className=" w-full bg-[#4B44AE] hover:bg-[#4B44DE] text-lg font-medium"
+                className=" w-full bg-black hover:bg-gray-800 text-lg font-medium"
                 type="submit"
             >
                 {form.formState.isSubmitting ? (
@@ -150,12 +152,12 @@ const Page = () => {
             </form>
         </Form>
         <button className=" text-cyan-400 font-medium">Forgot Password? </button>
-        <div className=" text-white flex gap-2 font-normal">
+        <div className=" text-black flex gap-2 font-normal">
             Already have an account?
             <button
             onClick={() => router.push("/auth/signin")}
             type="button"
-            className=" text-cyan-400 font-semibold cursor-pointer"
+            className=" text-gray-800 font-semibold cursor-pointer"
             >
             {" "}
             Sign In

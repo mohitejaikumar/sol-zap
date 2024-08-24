@@ -36,28 +36,30 @@ const Page = () => {
 
     async function onSubmit(values: z.infer<typeof loginSchema>) {
         const res: any = await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        redirect: false,
-        });
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/allZaps",
+            
+        },
+    );
         if (res.error) {
-        toast({
-            title: (
-            <div className=" flex gap-2 items-center font-bold">
-                <CircleX color="#ff1f1f" />
-                Error
-            </div>
-            ) as any,
-            description: res.error,
-        });
+            toast({
+                title: (
+                <div className=" flex gap-2 items-center font-bold">
+                    <CircleX color="#ff1f1f" />
+                    Error
+                </div>
+                ) as any,
+                description: res.error,
+            });
         } else {
-        router.push("/zaps");
+            console.log(res);
         }
     }
 
     return (
         <>
-        <div className=" text-white text-5xl font-semibold">Login</div>
+        <div className=" text-black text-5xl font-semibold">Sign In</div>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -67,7 +69,7 @@ const Page = () => {
                 <FormItem>
                     <FormControl>
                     <Input
-                        className=" bg-transparent text-white font-medium text-lg"
+                        className=" bg-transparent text-black font-medium text-lg"
                         placeholder="Email"
                         {...field}
                     />
@@ -84,7 +86,7 @@ const Page = () => {
                     <FormControl>
                     <Input
                         type="password"
-                        className="bg-transparent text-white font-medium text-lg"
+                        className="bg-transparent text-black font-medium text-lg"
                         placeholder="Password"
                         {...field}
                     />
@@ -94,16 +96,16 @@ const Page = () => {
                 )}
             />
             <Button
-                className=" w-full bg-[#4B44AE] hover:bg-[#4B44DE] p-3 text-lg font-medium"
+                className=" w-full bg-black hover:bg-gray-800 p-3 text-lg font-medium"
                 type="submit"
             >
                 {form.formState.isSubmitting ? (
                 <div className="flex justify-center items-center gap-2">
                     <DualRing />
-                    Logging in
+                    Signing in
                 </div>
                 ) : (
-                "Login"
+                "Sign In"
                 )}
             </Button>
             </form>
@@ -114,7 +116,7 @@ const Page = () => {
             <button
             type="button"
             onClick={() => router.push("/auth/signup")}
-            className=" text-cyan-400 font-semibold cursor-pointer"
+            className=" text-gray-800 font-semibold cursor-pointer"
             >
             Sign Up
             </button>

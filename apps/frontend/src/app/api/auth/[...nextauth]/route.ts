@@ -18,14 +18,13 @@ const handler = NextAuth({
                 if (data.error) {
                     return null;
                 }
+                console.log(data);
 
                 return {
                     id: data.user.id,
-                    name: data.user.name,
+                    username: data.user.username,
                     email: data.user.email,
-                    image: data.user.image,
                     jwtToken: data.token,
-                    plan: data.user.plan
                 };
             },
         }),
@@ -46,7 +45,7 @@ const handler = NextAuth({
             if (token.provider == "credentials") {
                 token.password = true;
                 if (user) {
-                    token.plan = user.plan;
+                    token.id = user.id;
                 }
             }
             if (user) {
@@ -59,7 +58,7 @@ const handler = NextAuth({
                 session.user.jwtToken = token.jwtToken
                 session.provider = token.provider
                 session.user.password = token.password;
-                session.user.plan = token.plan;
+                session.user.id = token.id;
             }
             return session
         }

@@ -6,14 +6,15 @@ import jwt from "jsonwebtoken";
 export const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunction) => {
 
     const token = req.headers["authorization"];
+    console.log(req.headers);
 
-    // if(!token){
-    //     return res.status(401).json({message:"Unauthorized"})
-    // }
+    if(!token){
+        return res.status(401).json({message:"Unauthorized"})
+    }
     try{
-        // const payload = jwt.verify(token, process.env.JWT_SECRET as string);
+        const payload = jwt.verify(token, process.env.JWT_SECRET as string);
         //@ts-ignore
-        req.userId = "92a013b6-a44a-4a88-9e66-76904c61e543";
+        req.userId = payload.id;
         next();
     }
     catch(err){
