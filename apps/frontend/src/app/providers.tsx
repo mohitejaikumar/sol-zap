@@ -1,5 +1,6 @@
 "use client";
 
+import { SessionProvider } from "next-auth/react";
 import { RecoilRoot } from "recoil";
 
 export default function Providers({
@@ -10,9 +11,11 @@ export default function Providers({
     
     return (
         <div>
-            <RecoilRoot>
-                {children}
-            </RecoilRoot>
+            <SessionProvider>
+                <RecoilRoot>
+                    {children}
+                </RecoilRoot>
+            </SessionProvider>
         </div>
     );
 }   
