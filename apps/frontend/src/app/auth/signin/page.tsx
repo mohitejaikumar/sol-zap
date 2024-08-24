@@ -38,7 +38,7 @@ const Page = () => {
         const res: any = await signIn("credentials", {
             email: values.email,
             password: values.password,
-            callbackUrl: "/allZaps",
+            callbackUrl: "/zaps",
             
         },
     );

@@ -23,7 +23,7 @@ async function main(){
             topic:"pipeline-events",
             messages:pendingZapRuns.map(zaps=>{
                 return {
-                    value:JSON.stringify({zapRunId:zaps.zapRunId, stage:0})
+                    value:JSON.stringify({zapRunId:zaps.zapRunId, stage:1})
                 }
             })
         });

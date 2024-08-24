@@ -92,10 +92,10 @@ router.post('/', async(req:CustomRequest,res)=>{
             maxWait: 5000, // default: 2000
             timeout: 10000, // default: 5000
         });
-            const webhookRes = await axios.post(`${process.env.WEBHOOK_URL}/createSolHook`,{
-                addressArray:[...(parsedData.data.triggerMetadata?.address)],
-            })
-            console.log(webhookRes);
+            // const webhookRes = await axios.post(`${process.env.WEBHOOK_URL}/createSolHook`,{
+            //     addressArray:[...(parsedData.data.triggerMetadata?.address)],
+            // })
+            // console.log(webhookRes);
 
             res.status(200).json({zap:zapData});
         }

@@ -12,8 +12,8 @@ export default async function middleware(req: NextRequest) {
         const loginURL = new URL(loginPath, req.nextUrl.origin);
         return NextResponse.redirect(loginURL.toString());
     }
-    if ((isAuthenticated && pathSegments[2] == "signin") || (isAuthenticated && pathSegments[2] == "signup")) {
-        const newURL = new URL("/allZaps", req.nextUrl.origin);
+    if ((isAuthenticated && pathSegments[2] == "signin") || (isAuthenticated && pathSegments[2] == "signup") || (isAuthenticated && pathSegments[1] == "allZaps")) {
+        const newURL = new URL("/zaps", req.nextUrl.origin);
         return NextResponse.redirect(newURL.toString());
     }
     return NextResponse.next();

@@ -18,6 +18,8 @@ import axios from 'axios';
 import { ZapCreateSchema } from 'types';
 import { Button } from 'solZap/components/ui/button';
 import { useSession } from 'next-auth/react';
+import { toast } from 'solZap/components/ui/use-toast';
+import { CircleCheck, CircleX } from 'lucide-react';
 
 
 
@@ -30,6 +32,8 @@ const getId = () => `${id++}`;
 const ZapPage = () => {
 
     const {data:session} = useSession();
+    //@ts-ignore
+    const token = session?.user?.jwtToken;
     const reactFlowWrapper = useRef(null);
     const connectingNodeId = useRef(null);
     const { screenToFlowPosition } = useReactFlow();
@@ -322,22 +326,41 @@ const ZapPage = () => {
             },{
                 headers:{
                     //@ts-ignore
-                    'Authorization': session?.user?.jwtToken
+                    Authorization: token
                 }
             });
-            console.log(res);
+            toast({
+                title: (
+                    <div className=" flex gap-2 items-center font-bold">
+                        <CircleCheck color="#05ff50" />
+                        Successfull
+                    </div>
+                ) as any,
+                description: `SolZap created successfully`,
+            });
         }
         catch(err){
             console.log(err);
+            toast({
+                title: (
+                <div className=" flex gap-2 items-center font-bold">
+                    <CircleX color="#ff1f1f" />
+                    Error
+                </div>
+                ) as any,
+                description: err.response.data.message,
+            });
         }
-    },[zapData]);
+    },[zapData , token]);
 
 
     return (
         <>
-        <div className="relative">
-        <Button className="absolute top-5 right-10 bg-black text-white" variant="default" disabled={!isDone} onClick={onPublish}>Publish</Button>
-        <div className="wrapper mt-[15vh]" ref={reactFlowWrapper}>
+        <div className=" w-full h-fit mt-16 flex justify-end px-11" >
+            <Button className="bg-black text-white cursor-pointer" variant="default" disabled={!isDone} onClick={onPublish}>Publish</Button>
+        </div>
+        
+        <div className="wrapper" ref={reactFlowWrapper}>
         {/* <div>{JSON.stringify(zapData)}</div> */}
         <ReactFlow
             nodes={nodes}
@@ -353,7 +376,7 @@ const ZapPage = () => {
             
         />
         </div>
-        </div>
+        
         </>
     )
 }
