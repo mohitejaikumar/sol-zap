@@ -7,9 +7,9 @@ export const authMiddleware = async (req: CustomRequest, res: Response, next: Ne
 
     const token = req.headers["authorization"];
 
-    if(!token){
-        return res.status(401).json({message:"Unauthorized"})
-    }
+    // if(!token){
+    //     return res.status(401).json({message:"Unauthorized"})
+    // }
     try{
         // const payload = jwt.verify(token, process.env.JWT_SECRET as string);
         //@ts-ignore

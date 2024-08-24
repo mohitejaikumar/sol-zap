@@ -11,8 +11,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-const walletAddressToCheck = "7R6C2jFctzrwUZ9N85qiHBbE2xdcQzq8QXpZYFcKRCyx"
 const HELIUS_KEY_ID = process.env.HELIUS_KEY_ID;
 
 app.post("/solHook", async (req,res)=>{
@@ -25,44 +23,44 @@ app.post("/solHook", async (req,res)=>{
 
     // dump this into database in zap and zapRun both (outbox pattern)
     
-    // await prisma.$transaction(async (tx)=>{
-    //     const zaps = await tx.availableTrigger.findMany({
-    //         where:{
-    //             name:"solana"
-    //         },
-    //         include:{
-    //             triggers:{
-    //                 include:{
-    //                     zap:true,
-    //                 },
-    //                 where:{
-    //                     metadata:{
-    //                         path:["address"],
-    //                         array_contains:[feePayer]
-    //                     }
-    //                 }
-    //             },
-    //         }
-    //     })
-    //     console.log(zaps);
-    //     for(const trigger of zaps[0].triggers){
-    //         const zapRun = await tx.zapRun.create({
-    //             data:{
-    //                 zapId:trigger.zapId,
-    //                 metadata:solTransferData[0].description,
-    //                 timestamp: new Date(),
-    //             },
-    //         })
-    //         const zapRunOutbox = await tx.zapRunOutbox.create({
-    //             data:{
-    //                 zapRunId:zapRun.id,
-    //                 timestamp: new Date(),
-    //             },
-    //         })
-    //         console.log(zapRunOutbox,zapRun);
-    //     }
+    await prisma.$transaction(async (tx)=>{
+        const zaps = await tx.availableTrigger.findMany({
+            where:{
+                name:"solana"
+            },
+            include:{
+                triggers:{
+                    include:{
+                        zap:true,
+                    },
+                    where:{
+                        metadata:{
+                            path:["address"],
+                            array_contains:[feePayer]
+                        }
+                    }
+                },
+            }
+        })
+        console.log(zaps);
+        for(const trigger of zaps[0].triggers){
+            const zapRun = await tx.zapRun.create({
+                data:{
+                    zapId:trigger.zapId,
+                    metadata:solTransferData[0].description,
+                    timestamp: new Date(),
+                },
+            })
+            const zapRunOutbox = await tx.zapRunOutbox.create({
+                data:{
+                    zapRunId:zapRun.id,
+                    timestamp: new Date(),
+                },
+            })
+            console.log(zapRunOutbox,zapRun);
+        }
         
-    // })
+    })
 
     res.status(200).send("Hook got successfully");
 })
@@ -92,7 +90,7 @@ app.post("/createSolHook", async (req,res)=>{
     console.log(subscribedAddresses);
 
     try{
-        const response = await axios.post(`https://api.helius.xyz/v0/webhooks?api-key=${HELIUS_KEY_ID}`,{
+        const response = await axios.put(`https://api.helius.xyz/v0/webhooks/b154a0a9-15d5-4ebc-9265-5e9652af5d30?api-key=${HELIUS_KEY_ID}`,{
             "webhookURL": `${process.env.HOOK_URL}/solHook`,
             "transactionTypes": ["Any"],
             "accountAddresses": subscribedAddresses,

@@ -1,8 +1,10 @@
 import prisma from "db";
 import { Router } from "express";
-import { CustomRequest, ZapCreateSchema } from "../types";
+import { CustomRequest } from "../types";
+import { ZapCreateSchema } from "types";
 import { authMiddleware } from "../middleware";
 import { Queue } from "../helpers/queue";
+import axios from "axios";
 
 
 const router = Router();
@@ -85,7 +87,16 @@ router.post('/', async(req:CustomRequest,res)=>{
                     }
                 }
                 return zap;
+            },
+            {
+            maxWait: 5000, // default: 2000
+            timeout: 10000, // default: 5000
+        });
+            const webhookRes = await axios.post(`${process.env.WEBHOOK_URL}/createSolHook`,{
+                addressArray:[...(parsedData.data.triggerMetadata?.address)],
             })
+            console.log(webhookRes);
+
             res.status(200).json({zap:zapData});
         }
         catch(err){

@@ -17,15 +17,3 @@ export const SigninSchema = z.object({
     password: z.string()
 });
 
-export const ActionSchema = z.object({
-        availableActionId:z.string(),
-        actionMetadata:z.any().optional(),
-})
-
-// 0-> is id of Trigger my actions will start from 1,2,3,4 etc .
-export const ZapCreateSchema = z.object({
-    map:z.record(z.string(),z.array(z.string())),
-    availableTriggerId:z.string(),
-    triggerMetadata:z.any().optional(),
-    actions:z.record(z.string(),ActionSchema),
-})
