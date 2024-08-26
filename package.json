@@ -5,7 +5,12 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "start:frontend":"cd apps/frontend && yarn run start",
+    "start:backend":"cd apps/primary-backend && yarn run start",
+    "start:worker":"cd apps/worker && yarn run start",
+    "start:processor":"cd apps/processor && yarn run start",
+    "start:hookbackend":"cd apps/hookBackend && yarn run start"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
