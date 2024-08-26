@@ -6,6 +6,7 @@ export const ActionSchema = z.object({
         actionMetadata:z.any().optional(),
 })
 
+
 // 0-> is id of Trigger my actions will start from 1,2,3,4 etc .
 export const ZapCreateSchema = z.object({
     map:z.record(z.string(),z.array(z.string())),
