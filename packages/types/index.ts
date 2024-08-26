@@ -20,6 +20,7 @@ export interface ActionSchema{
         actionMetadata?:any,
 }
 
+
 // 0-> is id of Trigger my actions will start from 1,2,3,4 etc .
 export interface ZapCreateSchema{
     map:Record<string,string[]>,

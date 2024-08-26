@@ -11,6 +11,7 @@
     "start:worker":"cd apps/worker && yarn run start",
     "start:processor":"cd apps/processor && yarn run start",
     "start:hookbackend":"cd apps/hookBackend && yarn run start"
+    
   },
   "devDependencies": {
     "prettier": "^3.2.5",
