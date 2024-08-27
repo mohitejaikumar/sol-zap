@@ -75,7 +75,7 @@ async function main(){
                         //@ts-ignore
                         console.log(body , action.metadata?.email);
                         //@ts-ignore
-                        await sendEmail(action.metadata.email, body.description);
+                        await sendEmail(action.metadata.email, body);
                     }
                     
                 }
