@@ -7,6 +7,7 @@ export default async function middleware(req: NextRequest) {
     const isAuthenticated = token ? true : false;
     const pathSegments = req.nextUrl.pathname.split('/');
 
+    
     if (!isAuthenticated && (pathSegments[1] == 'allZaps' || pathSegments[1] == 'zaps' )) {
         const loginPath = `/auth/signin/`;
         const loginURL = new URL(loginPath, req.nextUrl.origin);
