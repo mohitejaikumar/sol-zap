@@ -47,7 +47,7 @@ app.post("/solHook", async (req,res)=>{
             const zapRun = await tx.zapRun.create({
                 data:{
                     zapId:trigger.zapId,
-                    metadata:solTransferData[0].description,
+                    metadata:{description:solTransferData[0].description},
                     timestamp: new Date(),
                 },
             })
