@@ -21,6 +21,7 @@ const formSchema = z.object({
 })
 
 
+
 export function EmailForm({
     onDetailsFilled,
     nodeName,
