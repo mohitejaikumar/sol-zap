@@ -96,6 +96,7 @@ app.post("/createSolHook", async (req,res)=>{
             "accountAddresses": subscribedAddresses,
             "webhookType": "enhanced", // "enhancedDevnet"
             "txnStatus": "all", // success/failed
+            
         })
         console.log(response.data);
         res.json({data:response.data});
