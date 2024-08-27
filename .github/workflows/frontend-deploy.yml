@@ -24,4 +24,4 @@ jobs:
         chmod 600 keyfile
         mkdir -p ~/.ssh
         cp known_hosts ~/.ssh/known_hosts
-        ssh -tt -i keyfile ubuntu@ec2-54-147-213-218.compute-1.amazonaws.com "sudo bash /home/ubuntu/sol-zap/apps/frontend/deploy.sh"
+        ssh -tt -i keyfile ubuntu@ec2-18-207-149-56 "sudo bash /home/ubuntu/sol-zap/apps/frontend/deploy.sh"
