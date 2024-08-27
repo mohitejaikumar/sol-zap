@@ -70,9 +70,13 @@ async function main(){
                     const body =  zapRunData.metadata?.description;
                     console.log("inside for loop");
                     //@ts-ignore
-                    console.log(body , action.metadata?.email);
-                    //@ts-ignore
-                    await sendEmail(action.metadata.email, body.description);
+                    if(body && action.metadata?.email){
+                        
+                        //@ts-ignore
+                        console.log(body , action.metadata?.email);
+                        //@ts-ignore
+                        await sendEmail(action.metadata.email, body.description);
+                    }
                     
                 }
                 // wait for some time
