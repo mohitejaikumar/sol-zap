@@ -20,6 +20,7 @@ const formSchema = z.object({
     email_address: z.string().email({message: "Please enter a valid email address"}).min(2,{message: "Please enter a valid email address"}),
 })
 
+
 export function EmailForm({
     onDetailsFilled,
     nodeName,
