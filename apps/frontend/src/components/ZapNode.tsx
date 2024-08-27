@@ -64,6 +64,7 @@ export default function ZapNode({
     
 
     return (
+        
         <div className="w-full h-full flex gap-4 px-2 py-2 items-center justify-center  relative">
             {imageURL && <img
                 src={imageURL}
