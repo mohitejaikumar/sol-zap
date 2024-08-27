@@ -90,7 +90,7 @@ app.post("/createSolHook", async (req,res)=>{
     console.log(subscribedAddresses);
 
     try{
-        const response = await axios.put(`https://api.helius.xyz/v0/webhooks/b154a0a9-15d5-4ebc-9265-5e9652af5d30?api-key=${HELIUS_KEY_ID}`,{
+        const response = await axios.put(`https://api.helius.xyz/v0/webhooks/a0021ccf-3204-4e4f-912c-fa891724cbd9?api-key=${HELIUS_KEY_ID}`,{
             "webhookURL": `${process.env.HOOK_URL}/solHook`,
             "transactionTypes": ["Any"],
             "accountAddresses": subscribedAddresses,
