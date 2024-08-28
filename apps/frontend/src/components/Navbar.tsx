@@ -13,12 +13,20 @@ const Navbar = () => {
         </div>
         <div className=" basis-1/2 text-white text-xl flex items-center justify-end gap-12 px-6">
             {session?.data ? (
-            <>
+            <>  
                 <button
-                className="bg-black rounded-sm hover:bg-gray-800 transition-all duration-300 ease-in-out px-6 py-2 text-lg text-white"
-                onClick={() =>
-                    signOut({ callbackUrl: `${window.location.origin}/` })
-                }
+                    className="bg-gray-200 rounded-lg hover:bg-gray-100 transition-all duration-300 ease-in-out px-4 py-2  text-lg text-black"
+                    onClick={() =>
+                        router.push("/allZaps")
+                    }
+                >
+                My Zaps
+                </button>
+                <button
+                    className="bg-black rounded-sm hover:bg-gray-800 transition-all duration-300 ease-in-out px-6 py-2 text-lg text-white"
+                    onClick={() =>
+                        signOut({ callbackUrl: `${window.location.origin}/` })
+                    }
                 >
                 Logout
                 </button>

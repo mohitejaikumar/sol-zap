@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 
 
 
+
 const Page = () => {
 
     const {data:session} = useSession();
@@ -54,9 +55,9 @@ const Page = () => {
         <>
         <div className="mt-16"></div>
         <div className=" w-full h-fit mt-20 flex justify-end px-11" >
-            <Button className="bg-black text-white cursor-pointer" variant="default"  onClick={()=>router.push('/zaps')}>Create +</Button>
+            <Button className="bg-black text-white cursor-pointer fixed top-24" variant="default"  onClick={()=>router.push('/zaps')}>Create +</Button>
         </div>
-        <div className="flex justify-center  w-screen mt-10">
+        <div className="flex justify-center  w-screen mt-10 ">
             <Table className="max-w-[800px] mx-auto">
                 <TableHeader>
                     <TableRow>

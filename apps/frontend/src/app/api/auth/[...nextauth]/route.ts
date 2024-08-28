@@ -19,7 +19,6 @@ const handler = NextAuth({
                     return null;
                 }
                 console.log(data);
-
                 return {
                     id: data.user.id,
                     username: data.user.username,

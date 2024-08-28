@@ -10,7 +10,7 @@ export default function Providers({
 }>) {
     
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <SessionProvider>
                 <RecoilRoot>
                     {children}

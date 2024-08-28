@@ -181,6 +181,16 @@ const ZapPage = () => {
             }
         }
 
+        toast({
+                title: (
+                    <div className=" flex gap-2 items-center font-bold">
+                        <CircleCheck color="#05ff50" />
+                        Success
+                    </div>
+                ) as any,
+                duration: 500,
+        });
+
         checkIsDone();
     },[]);
     
