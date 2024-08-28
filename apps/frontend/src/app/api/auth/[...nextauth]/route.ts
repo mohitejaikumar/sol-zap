@@ -11,20 +11,28 @@ const handler = NextAuth({
                 password: { label: 'password', type: 'password', placeholder: '' },
             },
             async authorize(credentials: any) {
-                const { data } = await axios.post(`${process.env.SERVER_URL}/api/v1/user/signin`, {
-                    email: credentials.email,
-                    password: credentials.password
-                })
-                if (data.error) {
+
+                try{
+                    const { data } = await axios.post(`${process.env.SERVER_URL}/api/v1/user/signin`, {
+                        email: credentials.email,
+                        password: credentials.password
+                    })
+                    if (data.error) {
+                        return null;
+                    }
+                    console.log(data);
+                    return {
+                        id: data.user.id,
+                        username: data.user.username,
+                        email: data.user.email,
+                        jwtToken: data.token,
+                    };
+                }
+                catch(err){
+                    console.log(err);
                     return null;
                 }
-                console.log(data);
-                return {
-                    id: data.user.id,
-                    username: data.user.username,
-                    email: data.user.email,
-                    jwtToken: data.token,
-                };
+                
             },
         }),
     ],

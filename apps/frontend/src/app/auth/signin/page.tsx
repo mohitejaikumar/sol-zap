@@ -38,7 +38,7 @@ const Page = () => {
         const res: any = await signIn("credentials", {
             email: values.email,
             password: values.password,
-            callbackUrl: "/allZaps",
+            redirect:false,
             
         },
     );
@@ -50,10 +50,11 @@ const Page = () => {
                     Error
                 </div>
                 ) as any,
-                description: res.error,
+                description: "Invalid Credentials",
             });
         } else {
             console.log(res);
+            router.push('/allZaps');
         }
     }
 
