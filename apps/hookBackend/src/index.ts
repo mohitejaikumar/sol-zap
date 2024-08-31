@@ -95,7 +95,7 @@ app.post("/createSolHook", async (req,res)=>{
             "webhookURL": `${process.env.HOOK_URL}/solHook`,
             "transactionTypes": ["Any"],
             "accountAddresses": subscribedAddresses,
-            "webhookType": "enhanced", // "enhancedDevnet"
+            "webhookType": "enhancedDevnet", // "enhancedDevnet"
             "txnStatus": "all", // success/failed
             
         })
